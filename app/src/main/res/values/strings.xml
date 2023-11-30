@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">BookSlayer</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="welcome">Welcome!</string>
+    <string name="logout">Logout</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="signup">Sign Up</string>
+    <string name="builder">Made with ❤️ in Tunisia</string>
+    <string name="new_user">Don\'t have an account?</string>
+    <string name="old_user">Already have an account?</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="github_icon">github_icon</string>
+
+
+</resources>
