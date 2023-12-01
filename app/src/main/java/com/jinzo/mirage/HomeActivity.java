@@ -1,4 +1,6 @@
 package com.jinzo.mirage;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.jinzo.mirage.BookAdapter.OnItemClickListener;
 
 import android.content.ActivityNotFoundException;
@@ -6,6 +8,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,10 +35,51 @@ public class HomeActivity extends AppCompatActivity {
     private List<Book> books; // Define books at the class level
     private RecyclerView recyclerView; // Define recyclerView at the class level
 
+
+    private FirebaseAuth mAuth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        TextView userUid = findViewById(R.id.user_uid);
+        TextView userName = findViewById(R.id.user_id);
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            // Get the email address
+            String email = currentUser.getEmail();
+
+            // Extract the part before the '@' sign
+            String username = email != null && email.contains("@") ? email.substring(0, email.indexOf('@')) : "";
+
+            // Now set the welcome text with the username
+            userName.setText("Welcome, " + username);
+        }
+
+        //get uid
+        String useruid = currentUser.getUid();
+        userUid.setText(useruid);
+
+        //get username and avatar
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        ImageView userAvater = findViewById(R.id.user_avatar);
+
+        userAvater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent( HomeActivity.this, WelcomeActivity.class));
+            }
+        });
+
+
+
+
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
