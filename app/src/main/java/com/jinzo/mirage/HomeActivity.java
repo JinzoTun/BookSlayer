@@ -7,8 +7,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +24,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import androidx.appcompat.widget.Toolbar;
+import android.widget.ImageButton;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
+    private DrawerManager drawerManager;
 
 
     @Override
@@ -44,10 +49,29 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+        ImageButton btnMenu = findViewById(R.id.btnMenu);
+
+        drawerManager = new DrawerManager(this, drawerLayout, toolbar);
+        drawerManager.setDrawerButton(btnMenu);
+
         mAuth = FirebaseAuth.getInstance();
 
-        TextView userUid = findViewById(R.id.user_uid);
-        TextView userName = findViewById(R.id.user_id);
+        //TextView userUid = findViewById(R.id.user_uid);
+
+        // Inflate other_layout.xml
+        View inflatedView = getLayoutInflater().inflate(R.layout.nav_header, null);
+
+// Find the TextView with ID user_id from other_layout.xml
+        TextView userName = inflatedView.findViewById(R.id.user_id);
+
+// Now you can work with userIdTextView
+
+
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
@@ -60,7 +84,7 @@ public class HomeActivity extends AppCompatActivity {
             // Now set the welcome text with the username
             userName.setText("Welcome, " + username);
         }
-
+/*
         //get uid
         String useruid = currentUser.getUid();
         userUid.setText(useruid);
@@ -76,7 +100,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent( HomeActivity.this, WelcomeActivity.class));
             }
         });
-
+*/
 
 
 

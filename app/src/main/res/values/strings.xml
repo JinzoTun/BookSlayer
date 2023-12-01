@@ -12,6 +12,12 @@
     <string name="old_user">Already have an account?</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="github_icon">github_icon</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="your_title">Your Title</string>
+
+    <string name="menu_button_description">Description for the menu button</string>
+    <string name="search_button_description">Description for the search button</string>
 
 
 </resources>
